@@ -1,0 +1,14 @@
+{
+  "name": "gpu-coordination",
+  "version": "1.0.0",
+  "description": "A zero-dependency MCP server to coordinate GPU usage across multiple agent instances.",
+  "mcpServers": {
+    "gpu-coordination": {
+      "command": "python3",
+      "args": [
+        "${extensionPath}${/}tools${/}gpu-coordination${/}gpu_mcp_server.py"
+      ],
+      "cwd": "${extensionPath}"
+    }
+  }
+}

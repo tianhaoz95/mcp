@@ -11,28 +11,35 @@ A zero-dependency MCP server to coordinate GPU usage across multiple agent insta
 
 ## Installation
 
-### Automated Installation (Gemini CLI)
-If you are using **Gemini CLI**, you can install this entire repository as an extension. This will automatically clone the repository and register the tools:
+### 🚀 Automated Installation (Gemini CLI)
+If you are using **Gemini CLI**, you can install this directly from GitHub as a native extension. This will automatically clone the repository to your extensions directory and register the MCP server:
 ```bash
 gemini extensions install https://github.com/tianhaoz95/mcp
 ```
+*No further configuration is required. The tools will be available immediately.*
 
-### Manual Installation
-No installation is required beyond cloning this repository and ensuring you have Python 3 installed.
+### 🛠️ Manual Installation (Claude Code & others)
+For **Claude Code** or if you prefer to manage it manually in Gemini CLI, follow these steps:
 
-## Configuration
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/tianhaoz95/mcp
+   cd mcp
+   ```
 
-### Usage with Gemini CLI
-Add the server to your configuration using the `gemini mcp` command:
-```bash
-gemini mcp add gpu-coordination python3 /path/to/mcp/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8
-```
+2. **Register the MCP server:**
+   Replace `/path/to/mcp` with the actual path where you cloned the repository.
 
-### Usage with Claude Code
-Add the server to your configuration using the `claude mcp` command:
-```bash
-claude mcp add gpu-coordination python3 /path/to/mcp/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8
-```
+   **For Gemini CLI:**
+   ```bash
+   gemini mcp add gpu-coordination python3 $(pwd)/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8
+   ```
+
+   **For Claude Code:**
+   ```bash
+   claude mcp add gpu-coordination python3 $(pwd)/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8
+   ```
+
 
 
 ## Tools
