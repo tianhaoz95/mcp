@@ -8,7 +8,40 @@ from datetime import datetime, timedelta
 
 # Configuration
 DB_PATH = os.environ.get("GPU_MCP_DB_PATH", os.path.expanduser("~/.cache/gpu-mcp/gpu_state.db"))
-DEFAULT_GPU_COUNT = int(os.environ.get("GPU_COUNT", "8"))
+
+def detect_gpu_count():
+    # 1. Check environment variable override
+    if "GPU_COUNT" in os.environ:
+        try:
+            return int(os.environ["GPU_COUNT"])
+        except ValueError:
+            pass
+
+    # 2. Try to auto-detect using nvidia-smi (fastest)
+    try:
+        import subprocess
+        output = subprocess.check_output(["nvidia-smi", "-L"], stderr=subprocess.DEVNULL, text=True)
+        count = len([line for line in output.splitlines() if line.strip()])
+        if count > 0:
+            return count
+    except (subprocess.SubprocessError, FileNotFoundError):
+        pass
+
+    # 3. Try to count /dev/nvidia* devices (Linux specific)
+    try:
+        import glob
+        nvidia_devs = glob.glob("/dev/nvidia[0-9]*")
+        # Filter out management/control nodes, keep only numbered devices
+        count = len([d for d in nvidia_devs if d.split("/dev/nvidia")[-1].isdigit()])
+        if count > 0:
+            return count
+    except Exception:
+        pass
+
+    # 4. Fallback to default
+    return 8
+
+DEFAULT_GPU_COUNT = detect_gpu_count()
 
 def init_db():
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
