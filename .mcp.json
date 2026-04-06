@@ -8,6 +8,12 @@
       "env": {
         "GPU_COUNT": "8"
       }
+    },
+    "device-coordination": {
+      "command": "python3",
+      "args": [
+        "tools/device-coordination/device_mcp_server.py"
+      ]
     }
   }
 }

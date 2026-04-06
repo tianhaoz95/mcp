@@ -9,6 +9,13 @@
         "${extensionPath}${/}tools${/}gpu-coordination${/}gpu_mcp_server.py"
       ],
       "cwd": "${extensionPath}"
+    },
+    "device-coordination": {
+      "command": "python3",
+      "args": [
+        "${extensionPath}${/}tools${/}device-coordination${/}device_mcp_server.py"
+      ],
+      "cwd": "${extensionPath}"
     }
   }
 }
