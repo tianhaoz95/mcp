@@ -153,11 +153,11 @@ def handle_request(request):
                 "capabilities": {
                     "tools": {
                         "list_gpus": {
-                            "description": "List all GPUs and their status",
+                            "description": "List all GPUs and their status. Mandatory check before acquisition.",
                             "inputSchema": {"type": "object", "properties": {}}
                         },
                         "acquire_gpus": {
-                            "description": "Acquire exclusive locks on GPUs",
+                            "description": "MANDATORY: Acquire exclusive locks on GPUs BEFORE any GPU-related work (CUDA, PyTorch, etc.). Only use the IDs granted. Hold time defaults to 1 hour.",
                             "inputSchema": {
                                 "type": "object",
                                 "properties": {
@@ -168,7 +168,7 @@ def handle_request(request):
                             }
                         },
                         "release_gpus": {
-                            "description": "Release GPU locks",
+                            "description": "MANDATORY: Release GPU locks immediately AFTER GPU-related work finishes to allow other agents to use them.",
                             "inputSchema": {
                                 "type": "object",
                                 "properties": {
@@ -197,12 +197,12 @@ def handle_request(request):
                 "tools": [
                     {
                         "name": "list_gpus",
-                        "description": "Returns the current status of all GPUs on the host.",
+                        "description": "Returns the current status of all GPUs on the host. MUST call this to check availability.",
                         "inputSchema": {"type": "object", "properties": {}}
                     },
                     {
                         "name": "acquire_gpus",
-                        "description": "Requests a specific number of GPUs.",
+                        "description": "MANDATORY: Requests a specific number of GPUs BEFORE any GPU work. Use the IDs granted (e.g., set CUDA_VISIBLE_DEVICES).",
                         "inputSchema": {
                             "type": "object",
                             "properties": {
@@ -214,7 +214,7 @@ def handle_request(request):
                     },
                     {
                         "name": "release_gpus",
-                        "description": "Releases previously acquired GPUs.",
+                        "description": "MANDATORY: Releases previously acquired GPUs AFTER work finishes.",
                         "inputSchema": {
                             "type": "object",
                             "properties": {
