@@ -23,9 +23,22 @@ gemini extensions install https://github.com/tianhaoz95/mcp
    cd mcp
    ```
 2. **Register the tools:**
-   - Refer to the individual tool READMEs for specific `mcp add` commands:
-     - [GPU Coordination Setup](./tools/gpu-coordination/README.md#usage)
-     - [Device Coordination Setup](./tools/device-coordination/README.md#usage)
+
+   **For Claude Code (Global):**
+   ```bash
+   # GPU Coordination
+   claude mcp add gpu-coordination python3 $(pwd)/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8 --scope user
+   
+   # Device Coordination
+   claude mcp add device-coordination python3 $(pwd)/tools/device-coordination/device_mcp_server.py --scope user
+   ```
+   *Note: To limit these tools to a specific project, omit the `--scope user` flag.*
+
+   **For Gemini CLI (Manual):**
+   ```bash
+   gemini mcp add gpu-coordination python3 $(pwd)/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8
+   gemini mcp add device-coordination python3 $(pwd)/tools/device-coordination/device_mcp_server.py
+   ```
 
 ## Features
 - **Zero Dependency**: Only requires Python 3 (standard library).
