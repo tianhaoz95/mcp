@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "gpu-coordination": {
+      "command": "python3",
+      "args": [
+        "tools/gpu-coordination/gpu_mcp_server.py"
+      ],
+      "env": {
+        "GPU_COUNT": "8"
+      }
+    }
+  }
+}
