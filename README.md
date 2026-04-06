@@ -22,7 +22,7 @@ Add the following to your `~/.gemini/config.json` (or equivalent config file):
   "mcpServers": {
     "gpu-coordination": {
       "command": "python3",
-      "args": ["/path/to/mcp/gpu_mcp_server.py"],
+      "args": ["/path/to/mcp/tools/gpu-coordination/gpu_mcp_server.py"],
       "env": {
         "GPU_COUNT": "8"
       }
@@ -40,7 +40,7 @@ Add the following to your Claude Code configuration:
   "mcpServers": {
     "gpu-coordination": {
       "command": "python3",
-      "args": ["/path/to/mcp/gpu_mcp_server.py"],
+      "args": ["/path/to/mcp/tools/gpu-coordination/gpu_mcp_server.py"],
       "env": {
         "GPU_COUNT": "8"
       }
@@ -74,6 +74,7 @@ The server maintains a SQLite database at `~/.cache/gpu-mcp/gpu_state.db`. This 
 To run the automated tests:
 
 ```bash
+cd tools/gpu-coordination
 python3 test_gpu_mcp.py
 ```
 
@@ -81,8 +82,8 @@ To manually test the server using `mcp-get`:
 
 ```bash
 # List tools
-echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' | python3 gpu_mcp_server.py
+echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' | python3 tools/gpu-coordination/gpu_mcp_server.py
 
 # Acquire 2 GPUs
-echo '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"acquire_gpus","arguments":{"count":2}}}' | python3 gpu_mcp_server.py
+echo '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"acquire_gpus","arguments":{"count":2}}}' | python3 tools/gpu-coordination/gpu_mcp_server.py
 ```
