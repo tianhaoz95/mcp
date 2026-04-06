@@ -30,7 +30,11 @@ For **Claude Code** or if you prefer to manage it manually in Gemini CLI, follow
 2. **Register the MCP server:**
 
    **For Claude Code:**
-   Simply run `claude` inside the cloned directory. Claude Code will automatically detect the `.mcp.json` file and ask for your permission to load the `gpu-coordination` tools.
+   To make it available **globally** across all your projects:
+   ```bash
+   claude mcp add gpu-coordination python3 $(pwd)/tools/gpu-coordination/gpu_mcp_server.py --env GPU_COUNT=8 --scope user
+   ```
+   *If you omit `--scope user`, it will only be available in the current project.*
 
    **For Gemini CLI (Manual):**
    ```bash
